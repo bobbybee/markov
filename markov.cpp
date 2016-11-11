@@ -24,12 +24,12 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
 
             if(str.length() < maximum) {
                 strcpy(out, str.c_str());
+                return str.length();
+            } else {
+                return -1;
             }
         }
     }
-
-    std::cout << ult << std::endl;
-    std::cout << pen << std::endl;
 
     return -1;
 }
@@ -38,7 +38,10 @@ int main() {
     printf("Hello World!\n");
     printf("%d\n", __chain["very"]["small"]["markov "]);
     
-    char text[] = "this is some very small";
+    char* text = (char*) malloc(4096);
+    memset(text, 0, 4095);
+
+    strcpy(text, "this is some very small");
     char next[64];
     
     ssize_t nextLen = nextWord(next, 64, text);
@@ -47,5 +50,9 @@ int main() {
         printf("uwotm8?\n");
     }
 
-    printf("%s\n", next);
+    int l = strlen(text);
+    text[l] = ' ';
+    memcpy(text + l + 1, next, nextLen);
+
+    printf("%s\n", text);
 }

@@ -25,7 +25,7 @@ function assign(con) {
 
 function serialize(json) {
     if(typeof json === 'number') return json;
-    if(typeof json === 'string') return '"' + json + '"';
+    if(typeof json === 'string') return JSON.stringify(json);
     if(typeof json === 'object') return map(json);
 
     console.error("*shrugs*");

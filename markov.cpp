@@ -61,15 +61,12 @@ void advance_text(char* text, size_t length) {
 }
 
 int main() {
-    printf("Hello World!\n");
-    printf("%d\n", __chain["very"]["small"]["markov "]);
-    
     char* text = (char*) malloc(4096);
     memset(text, 0, 4095);
-    strcpy(text, "this is some very small");
+    strcpy(text, "this is");
 
     for(;;) {
-        advance_text(text, 4096);
+        advance_text(text, 512);
         printf("%s\n", text);
     }
 }

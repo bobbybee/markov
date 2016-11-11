@@ -41,16 +41,21 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
     return -1;
 }
 
-void UNSAFE_DEBUG_advance(char* text) {
+void advance_text(char* text, size_t length) {
     char next[64];
-    
     ssize_t nextLen = nextWord(next, 64, text);
 
     if(nextLen == -1) {
-        printf("uwotm8?\n");
+        /* error condition */
+        exit(1);
     }
 
-    int l = strlen(text);
+    size_t l = strlen(text);
+
+    if(l + nextLen + 1 > length) {
+        exit(1);
+    }
+
     text[l] = ' ';
     memcpy(text + l + 1, next, nextLen);
 }
@@ -64,7 +69,7 @@ int main() {
     strcpy(text, "this is some very small");
 
     for(;;) {
-        UNSAFE_DEBUG_advance(text);
+        advance_text(text, 4096);
         printf("%s\n", text);
     }
 }

@@ -1,8 +1,7 @@
 #include <iostream>
-#include <map>
-
-typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;
+#include "chain.h"
 
 int main() {
     printf("Hello World!\n");
+    printf("%d\n", __chain["very"]["small"]["markov "]);
 }

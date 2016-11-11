@@ -16,9 +16,10 @@ function assign(con) {
             "",
             "#ifndef __MARKOV_CHAIN",
             "#define __MARKOV_CHAIN",
+            "#include <map>",
             "typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;",
             "MarkovChain __chain = \\",
-            con,
+            con + ";",
             "#endif"].join("\n");
 }
 

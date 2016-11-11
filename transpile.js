@@ -16,22 +16,30 @@ function assign(con) {
             "",
             "#ifndef __MARKOV_CHAIN",
             "#define __MARKOV_CHAIN",
-            "#include <map>",
-            "typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;",
-            "MarkovChain __chain = \\",
-            con + ";",
+            '#include "markov.h"',
+            "MarkovChain __chain;",
+            "void initialize_chain() {",
+            con,
+            "}",
             "#endif"].join("\n");
 }
 
 function serialize(json) {
-    if(typeof json === 'number') return json;
+    /*if(typeof json === 'number') return json;
     if(typeof json === 'string') return JSON.stringify(json);
     if(typeof json === 'object') return map(json);
 
-    console.error("*shrugs*");
+    console.error("*shrugs*");*/
+
+    let out = [];
+
+    Object.keys(json).forEach(A => Object.keys(json[A]).forEach(B => Object.keys(json[A][B]).forEach(C => {
+        out.push(`    __chain[${w(A)}][${w(B)}][${w(C)}] = ${json[A][B][C]};`)
+    })));
+
+    return out.join("\n");
 }
 
-function map(json) {
-    return "{" + Object.keys(json).map(k => "{" + serialize(k) + "," + serialize(json[k]) + "}")
-                                  .join(", \n") + "}";
+function w(k) {
+    return JSON.stringify(k);
 }

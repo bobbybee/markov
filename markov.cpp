@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string.h>
-#include "chain.h"
+#include "markov.h"
 
 ssize_t nextWord(char* out, size_t maximum, char* context) {
     char* end = context + strlen(context) - 1;

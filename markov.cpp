@@ -34,14 +34,7 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
     return -1;
 }
 
-int main() {
-    printf("Hello World!\n");
-    printf("%d\n", __chain["very"]["small"]["markov "]);
-    
-    char* text = (char*) malloc(4096);
-    memset(text, 0, 4095);
-
-    strcpy(text, "this is some very small");
+void UNSAFE_DEBUG_advance(char* text) {
     char next[64];
     
     ssize_t nextLen = nextWord(next, 64, text);
@@ -53,6 +46,18 @@ int main() {
     int l = strlen(text);
     text[l] = ' ';
     memcpy(text + l + 1, next, nextLen);
+}
 
-    printf("%s\n", text);
+int main() {
+    printf("Hello World!\n");
+    printf("%d\n", __chain["very"]["small"]["markov "]);
+    
+    char* text = (char*) malloc(4096);
+    memset(text, 0, 4095);
+    strcpy(text, "this is some very small");
+
+    for(;;) {
+        UNSAFE_DEBUG_advance(text);
+        printf("%s\n", text);
+    }
 }

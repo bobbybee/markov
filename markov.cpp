@@ -9,13 +9,20 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
     while( *(end--) != ' ' && *(end + 1)) ult = *(end+1) + ult;
     while( *(end--) != ' ' && *(end + 1)) pen = *(end+1) + pen;
 
-    std::map<std::string, int> kv = __chain[pen][ult];
+    std::map<std::string, int> kv;
+
+    try {
+        kv = __chain[pen][ult];
+    } catch(const std::out_of_range& err) {
+        out[0] = '\0';
+        return 0;
+    }
 
     int sum = 0;
     for(auto it = kv.begin(); it != kv.end(); ++it) sum += it->second;
     if(sum == 0) return -1;
 
-    int chosen = (rand() % sum);
+    int chosen = rand() % sum;
     for(auto it = kv.begin(); it != kv.end(); ++it) {
         chosen -= it->second;
 

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <string.h>
+#include <cstring>
 #include <map>
+#include <ctime>
 
 typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;
 
@@ -21,6 +22,7 @@ extern "C" {
 
         while (in >> a >> b >> c >> d) __chain[a][b][c] = d;
 
+        srand(time(NULL));
         chain_initialized = true;
     }
 

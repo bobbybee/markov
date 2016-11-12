@@ -24,8 +24,18 @@ extern "C" {
     ssize_t nextWord(char* out, size_t maximum, char* context, size_t len) {
         char* end = context + len - 1;
 
+        bool trailingSpace = true;
+        int ex = 1;
+
+        while(*end && *end == ' ') {
+            --end;
+            trailingSpace = false;
+            ex = 0;
+        }
+
         std::string ult, pen;
         while (*end && *(end--) != ' ') ult = *(end+1) + ult;
+        while (*end && *end == ' ') end--;
         while (*end && *(end--) != ' ') pen = *(end+1) + pen;
 
         std::map<std::string, int> kv = __chain[pen][ult];
@@ -39,10 +49,10 @@ extern "C" {
         auto it = kv.begin();
         while (it != kv.end() && chosen > 0) chosen -= (it++)->second;
 
-        if ((--it) == kv.end() || it->first.length() + 1 >= maximum) return -1;
+        if ((--it) == kv.end() || it->first.length() + ex >= maximum) return -1;
 
-        out[0] = ' ';
-        strcpy(out + 1, it->first.c_str());
-        return it->first.length() + 1;
+        if(trailingSpace) out[0] = ' ';
+        strcpy(out + ex, it->first.c_str());
+        return it->first.length() + ex;
     }
 }

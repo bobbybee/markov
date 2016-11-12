@@ -46,13 +46,19 @@ extern "C" {
         if (sum == 0) return 0;
 
         int chosen = rand() % sum;
-        auto it = kv.begin();
-        while (it != kv.end() && chosen > 0) chosen -= (it++)->second;
 
-        if ((--it) == kv.end() || it->first.length() + space >= maximum) return -1;
+        for(auto it = kv.begin(); it < kv.end(); ++it) {
+            chosen -= it->second;
 
-        if(trailingSpace) out[0] = ' ';
-        strcpy(out + space, it->first.c_str());
-        return it->first.length() + ex;
-    }
+            if(chosen <= 0) {
+                if(it->first.length() + space >= maximum) return -1;
+                
+                if(trailingSpace) out[0] = ' ';
+                strcpy(out + space, it->first.c_str());
+                return it->first.length() + ex;
+            }
+        }
+
+        return -1;
+   }
 }

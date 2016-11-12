@@ -35,7 +35,7 @@ extern "C" {
 
         std::string ult, pen;
         while (*end && *(end--) != ' ') ult = *(end+1) + ult;
-        while (*end && *end == ' ') end--;
+        while (*end && *end     == ' ') end--;
         while (*end && *(end--) != ' ') pen = *(end+1) + pen;
 
         std::map<std::string, int> kv = __chain[pen][ult];

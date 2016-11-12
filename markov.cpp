@@ -26,13 +26,11 @@ extern "C" {
     ssize_t nextWord(char* out, size_t maximum, char* context, size_t len) {
         char* end = context + len - 1;
 
-        bool trailingSpace = true;
-        int ex = 1;
+        int space = 1;
 
         while(*end && *end == ' ') {
             --end;
-            trailingSpace = false;
-            ex = 0;
+            space = 0;
         }
 
         std::string ult, pen;
@@ -51,10 +49,10 @@ extern "C" {
         auto it = kv.begin();
         while (it != kv.end() && chosen > 0) chosen -= (it++)->second;
 
-        if ((--it) == kv.end() || it->first.length() + ex >= maximum) return -1;
+        if ((--it) == kv.end() || it->first.length() + space >= maximum) return -1;
 
         if(trailingSpace) out[0] = ' ';
-        strcpy(out + ex, it->first.c_str());
+        strcpy(out + space, it->first.c_str());
         return it->first.length() + ex;
     }
 }

@@ -1,6 +1,22 @@
 #include <iostream>
+#include <fstream>
 #include <string.h>
-#include "markov.h"
+#include <map>
+
+typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;
+
+MarkovChain __chain;
+
+void initialize_chain(std::string path) { 
+    std::ifstream in(path);
+
+    std::string a, b, c;
+    int d;
+
+    while(in >> a >> b >> c >> d) {
+        __chain[a][b][c] = d;
+    }
+}
 
 ssize_t nextWord(char* out, size_t maximum, char* context) {
     char* end = context + strlen(context) - 1;
@@ -61,6 +77,8 @@ void advance_text(char* text, size_t length) {
 }
 
 int main() {
+    initialize_chain("chain.txt");
+
     char* text = (char*) malloc(4096);
     memset(text, 0, 4095);
     strcpy(text, "this is");

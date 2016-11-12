@@ -19,10 +19,14 @@ void initialize_chain(std::string path) {
     while(in >> a >> b >> c >> d) {
         __chain[a][b][c] = d;
     }
+
+    chain_initialized = true;
 }
 
-ssize_t nextWord(char* out, size_t maximum, char* context) {
-    char* end = context + strlen(context) - 1;
+ssize_t nextWord(char* out, size_t maximum, char* context, size_t len) {
+    if(!chain_initialized) initialize_chain("./chain.txt");
+
+    char* end = context + len - 1;
 
     std::string ult, pen;
     while(*end && *(end--) != ' ') ult = *(end+1) + ult;
@@ -64,7 +68,7 @@ ssize_t advance_text(char* text, size_t length) {
     if(!chain_initialized) initialize_chain("./chain.txt");
 
     char next[64];
-    ssize_t nextLen = nextWord(next, 64, text) + 1;
+    ssize_t nextLen = nextWord(next, 64, text, strlen(text)) + 1;
     size_t l = strlen(text);
 
     if(nextLen == -1 || l + nextLen > length) return -1;

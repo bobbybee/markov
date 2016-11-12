@@ -47,15 +47,15 @@ extern "C" {
 
         int chosen = rand() % sum;
 
-        for(auto it = kv.begin(); it < kv.end(); ++it) {
+        for(auto it = kv.begin(); it != kv.end(); ++it) {
             chosen -= it->second;
 
-            if(chosen <= 0) {
+            if(chosen < 0) {
                 if(it->first.length() + space >= maximum) return -1;
                 
-                if(trailingSpace) out[0] = ' ';
+                if(space) out[0] = ' ';
                 strcpy(out + space, it->first.c_str());
-                return it->first.length() + ex;
+                return it->first.length() + space;
             }
         }
 

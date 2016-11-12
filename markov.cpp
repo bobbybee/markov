@@ -57,23 +57,17 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
     return -1;
 }
 
-void advance_text(char* text, size_t length) {
+ssize_t advance_text(char* text, size_t length) {
     char next[64];
-    ssize_t nextLen = nextWord(next, 64, text);
-
-    if(nextLen == -1) {
-        /* error condition */
-        exit(1);
-    }
-
+    ssize_t nextLen = nextWord(next, 64, text) + 1;
     size_t l = strlen(text);
 
-    if(l + nextLen + 1 > length) {
-        exit(1);
-    }
+    if(nextLen == -1 || l + nextLen > length) return -1;
 
     text[l] = ' ';
-    memcpy(text + l + 1, next, nextLen);
+    memcpy(text + l + 1, next, nextLen - 1);
+
+    return nextLen;
 }
 
 int main() {

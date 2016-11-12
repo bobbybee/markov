@@ -22,8 +22,8 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
     char* end = context + strlen(context) - 1;
 
     std::string ult, pen;
-    while( *(end--) != ' ' && *(end + 1)) ult = *(end+1) + ult;
-    while( *(end--) != ' ' && *(end + 1)) pen = *(end+1) + pen;
+    while(*end && *(end--) != ' ') ult = *(end+1) + ult;
+    while(*end && *(end--) != ' ') pen = *(end+1) + pen;
 
     std::map<std::string, int> kv;
 

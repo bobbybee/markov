@@ -5,6 +5,10 @@ libmarkov.so: markov.o
 	g++ -shared -fPIC -o $@ $<
 
 .PHONY: install
-install: libmarkov.so markov.h
-	cp libmarkov.so /usr/local/lib/
-	cp markov.h /usr/local/include/
+install: /usr/local/lib/libmarkov.so /usr/local/include/markov.h
+
+/usr/local/lib/libmarkov.so: libmarkov.so
+	cp $< $@
+
+/usr/local/include/markov.h: markov.h
+	cp $< $@

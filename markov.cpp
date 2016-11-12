@@ -10,6 +10,7 @@ MarkovChain __chain;
 
 extern "C" {
     void initialize_chain(char* p) {
+        if(chain_initialized) return;
         if(getenv("MARKOV_CHAIN")) p = getenv("MARKOV_CHAIN");
 
         std::string path(p);

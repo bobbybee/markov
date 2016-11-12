@@ -1,8 +1,4 @@
-/**
- * transpile second order JSON markov chain to C++ map-map-map form
- * Copyright (C) 2016 Alyssa Rosenzweig
- * ALL RIGHTS REVERSED
- */
+/* translate second order JSON markov chain to delimited text files */
 
 const fs = require("fs"),
       chain = JSON.parse(fs.readFileSync(process.argv[2]).toString());

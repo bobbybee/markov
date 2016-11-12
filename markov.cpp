@@ -10,8 +10,8 @@ MarkovChain __chain;
 
 extern "C" {
     void initialize_chain(char* p) {
-        if(chain_initialized) return;
-        if(getenv("MARKOV_CHAIN")) p = getenv("MARKOV_CHAIN");
+        if (chain_initialized) return;
+        if (getenv("MARKOV_CHAIN")) p = getenv("MARKOV_CHAIN");
 
         std::string path(p);
         std::ifstream in(path);
@@ -29,7 +29,7 @@ extern "C" {
 
         int space = 1;
 
-        while(*end && *end == ' ') {
+        while (*end && *end == ' ') {
             --end;
             space = 0;
         }
@@ -48,13 +48,13 @@ extern "C" {
 
         int chosen = rand() % sum;
 
-        for(auto it = kv.begin(); it != kv.end(); ++it) {
+        for (auto it = kv.begin(); it != kv.end(); ++it) {
             chosen -= it->second;
 
-            if(chosen < 0) {
-                if(it->first.length() + space >= maximum) return -1;
-                
-                if(space) out[0] = ' ';
+            if (chosen < 0) {
+                if (it->first.length() + space >= maximum) return -1;
+
+                if (space) out[0] = ' ';
                 strcpy(out + space, it->first.c_str());
                 return it->first.length() + space;
             }

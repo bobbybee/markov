@@ -10,7 +10,8 @@ MarkovChain __chain;
 
 extern "C" {
 
-void initialize_chain(std::string path) { 
+void initialize_chain(char* p) { 
+    std::string path(p);
     std::ifstream in(path);
 
     std::string a, b, c;

@@ -39,7 +39,7 @@ extern "C" {
         auto it = kv.begin();
         while (it != kv.end() && chosen > 0) chosen -= (it++)->second;
 
-        if (it == kv.end() || it->first.length() + 1 >= maximum) return -1;
+        if ((--it) == kv.end() || it->first.length() + 1 >= maximum) return -1;
 
         out[0] = ' ';
         strcpy(out + 1, it->first.c_str());

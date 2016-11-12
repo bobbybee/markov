@@ -1,3 +1,12 @@
 # markov
 
-Markov chains are imported in nested JSON format (second order). Compile them to a file named "chain.txt" with transpile.js. Then, markov.cpp will generate text from them, easily linkable
+Generate Markov chains using generate.py:
+
+    $ cat <corpus-text> | ./generate.py
+
+This will save a JSON Markov chain to chain.json.
+Then, run transpile.py:
+
+    $ ./transpile.py chain.json > chain
+
+You can then load "chain" from markov.cpp.

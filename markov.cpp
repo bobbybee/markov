@@ -5,7 +5,10 @@
 
 typedef std::map<std::string, std::map<std::string, std::map<std::string, int>>> MarkovChain;
 
+bool chain_initialized = false;
 MarkovChain __chain;
+
+extern "C" {
 
 void initialize_chain(std::string path) { 
     std::ifstream in(path);
@@ -58,6 +61,8 @@ ssize_t nextWord(char* out, size_t maximum, char* context) {
 }
 
 ssize_t advance_text(char* text, size_t length) {
+    if(!chain_initialized) initialize_chain("./chain.txt");
+
     char next[64];
     ssize_t nextLen = nextWord(next, 64, text) + 1;
     size_t l = strlen(text);
@@ -70,7 +75,9 @@ ssize_t advance_text(char* text, size_t length) {
     return nextLen;
 }
 
-int main() {
+}
+
+/*int main() {
     initialize_chain("chain.txt");
 
     char* text = (char*) malloc(4096);
@@ -81,4 +88,4 @@ int main() {
         advance_text(text, 512);
         printf("%s\n", text);
     }
-}
+}*/

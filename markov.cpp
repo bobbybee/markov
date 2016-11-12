@@ -32,38 +32,16 @@ extern "C" {
 
         int sum = 0;
         for(auto it = kv.begin(); it != kv.end(); ++it) sum += it->second;
+
         if(sum == 0) return 0;
 
         int chosen = rand() % sum;
+        auto it = kv.begin();
+        while(it != kv.end() && chosen > 0) chosen -= (it++)->second;
 
-        for(auto it = kv.begin(); it != kv.end(); ++it) {
-            chosen -= it->second;
+        if(it == kv.end() || it->first.length() >= maximum) return -1;
 
-            if(chosen <= 0) {
-                std::string str = it->first;
-
-                if(str.length() < maximum) {
-                    strcpy(out, str.c_str());
-                    return str.length();
-                } else {
-                    return -1;
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    ssize_t advance_text(char* text, size_t length) {
-        char next[64];
-        ssize_t nextLen = nextWord(next, 64, text, strlen(text)) + 1;
-        size_t l = strlen(text);
-
-        if(nextLen == -1 || l + nextLen > length) return -1;
-
-        text[l] = ' ';
-        memcpy(text + l + 1, next, nextLen - 1);
-
-        return nextLen;
+        strcpy(out, it->first.c_str());
+        return it->first.length();
     }
 }

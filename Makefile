@@ -11,4 +11,5 @@ install: /usr/local/lib/libmarkov.so /usr/local/include/markov.h
 	cp $< $@
 
 /usr/local/include/markov.h: markov.h
+	mkdir -p /usr/local/include
 	cp $< $@
